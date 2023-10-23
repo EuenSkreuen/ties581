@@ -13,8 +13,8 @@ def power_iteration(A, e, n):
         iteration_count += 1
     print(f"Eigenvector is {b0}")
     b0 = np.array([b0]) # IMPORTANT: The lines are always vertical, meaning the the rows are actually the columns when counting!!!!
-    print(f"Attempt multiplication: {np.dot(np.dot(b0, A), b0.transpose())}")
-    print(f"Another multiplication: {np.dot(b0, b0.transpose())}")
+    # print(f"Attempt multiplication: {np.dot(np.dot(b0, A), b0.transpose())}")
+    # print(f"Another multiplication: {np.dot(b0, b0.transpose())}")
     print(f"Actual rayleigh: {(np.dot(np.dot(b0, A), b0.transpose()) / np.dot(b0, b0.transpose()))[0][0]}")
 
 
@@ -26,4 +26,6 @@ a = np.array([[-6, 3], [4, 5]])
 print(a)
 power_iteration(a, 0.001, 100)
 print("Correct answers: ")
-print(cheat(a))
+cheats = cheat(a)
+for item in cheats:
+    print(item)
