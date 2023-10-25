@@ -10,8 +10,15 @@
 import numpy as np
 from sklearn.decomposition import NMF
 
+
+example_matrix = np.array([[1, 1], [2, 1], [3, 1.2], [4, 1], [5, 0.8], [6, 1]])
+
+
 def run_example_NMF():
-    X = np.array([[1, 1], [2, 1], [3, 1.2], [4, 1], [5, 0.8], [6, 1]])
+    """
+    Example function for comparison using sklearn functionality
+    """
+    X = example_matrix
     model = NMF(n_components=2, init='random', random_state=0)
     W = model.fit_transform(X)
     H = model.components_
@@ -27,9 +34,13 @@ def run_example_NMF():
             row.append(X[i,j] - V[i,j])
         df[i] = row
     print(f"Difference matrix was:\n{df}")
+    print(f"The frobenius distance between W and H is:\n{frobenius_distance(np.matmul(W,H), X)}")
 
 
 def trace(A):
+    """
+    Helper function for frobenius distance
+    """
     # Trace of a matrix is equal to sum of its eigenvalues
     sum = 0
     for i in range(0, len(A)):
@@ -38,9 +49,12 @@ def trace(A):
 
 
 def frobenius_distance(X, Y):
-    # TODO: calculate difference between matrices using Frobenius distance:
+    """
+    Gives one version of distance between two matrices. Helps to determine if
+    result of NMF is accurate or not.
+    """
     # https://search.r-project.org/CRAN/refmans/SMFilter/html/FDist2.html
-    # return np.sqrt(trace(np.matmul((),())))
-    pass
+    A = X - Y
+    return np.sqrt(trace(np.matmul((A.transpose()),(A))))
 
 run_example_NMF()
